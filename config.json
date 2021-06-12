@@ -1,13 +1,12 @@
 {
   "name": "Hassio DNS Update",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "slug": "hassio-dns-update",
   "description": "Add-on to update external DNS with local dynamic IP",
   "url": "https://github.com/aouicher/hassio-dns-update.git",
   "init": false,
   "arch": ["aarch64", "amd64", "armhf", "armv7", "i386"],
   "map": ["ssl", "config:rw"],
-  "boot": true,
   "options": {
     "AWS_ACCESS_KEY_ID":"",
     "AWS_SECRET_ACCESS_KEY" :"",
