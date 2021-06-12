@@ -1,0 +1,5 @@
+{
+    "name": "Home Assistant Update DNS with dynamic IP",
+    "url": "https://github.com/aouicher/hassio-dns-update.git",
+    "maintainer": "Alexandre Ouicher <aouicher@cobalt.fr>"
+}
