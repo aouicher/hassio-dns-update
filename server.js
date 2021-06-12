@@ -6,24 +6,25 @@ const fs = require('fs')
 const AWS = require('aws-sdk')
 const log4js = require('log4js')
 const dotenv = require('dotenv')
+const options = JSON.parse(fs.readFileSync("/data/options.json", "utf8"))
 
 // Initialize dotenv to try and load .env file
 const dotenvresult = dotenv.config()
 
 // Global configuration variables set using environment variables
-const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID
-const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY
-const AWS_REGION = process.env.AWS_REGION
-const ROUTE53_HOSTED_ZONE_ID = process.env.ROUTE53_HOSTED_ZONE_ID
-const ROUTE53_DOMAIN = process.env.ROUTE53_DOMAIN
-const ROUTE53_TYPE = process.env.ROUTE53_TYPE
-const ROUTE53_TTL = process.env.ROUTE53_TTL
-const SEND_EMAIL_SES = JSON.parse(process.env.SEND_EMAIL_SES || 'false')
-const SES_TO_ADDRESS = process.env.SES_TO_ADDRESS
-const SES_FROM_ADDRESS = process.env.SES_FROM_ADDRESS
-const UPDATE_FREQUENCY = parseInt(process.env.UPDATE_FREQUENCY || '60000')
-const IPCHECKER = process.env.IPCHECKER || 'opendns'
-const LOG_TO_STDOUT = JSON.parse(process.env.LOG_TO_STDOUT || 'false')
+const AWS_ACCESS_KEY_ID = options.AWS_ACCESS_KEY_ID
+const AWS_SECRET_ACCESS_KEY = options.AWS_SECRET_ACCESS_KEY
+const AWS_REGION = options.AWS_REGION
+const ROUTE53_HOSTED_ZONE_ID = options.ROUTE53_HOSTED_ZONE_ID
+const ROUTE53_DOMAIN = options.ROUTE53_DOMAIN
+const ROUTE53_TYPE = options.ROUTE53_TYPE
+const ROUTE53_TTL = options.ROUTE53_TTL
+const SEND_EMAIL_SES = JSON.parse(options.SEND_EMAIL_SES || 'false')
+const SES_TO_ADDRESS = options.SES_TO_ADDRESS
+const SES_FROM_ADDRESS = options.SES_FROM_ADDRESS
+const UPDATE_FREQUENCY = parseInt(options.UPDATE_FREQUENCY || '60000')
+const IPCHECKER = options.IPCHECKER || 'opendns'
+const LOG_TO_STDOUT = JSON.parse(options.LOG_TO_STDOUT || 'false')
 
 // Setup connection info for IPCHECKER services. Other services can
 // be added below in future if desired
@@ -84,42 +85,42 @@ if (dotenvresult.error) {
 }
 
 // Determine if required environment variables are set before starting to execute process
-if (typeof process.env.AWS_ACCESS_KEY_ID === 'undefined' || process.env.AWS_ACCESS_KEY_ID === null) {
+if (typeof options.AWS_ACCESS_KEY_ID === 'undefined' || options.AWS_ACCESS_KEY_ID === null) {
   logger.error('AWS_ACCESS_KEY_ID is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for AWS_ACCESS_KEY_ID and try again.')
   throw new Error('AWS_ACCESS_KEY_ID is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for AWS_ACCESS_KEY_ID and try again.')
 }
-if (typeof process.env.AWS_SECRET_ACCESS_KEY === 'undefined' || process.env.AWS_SECRET_ACCESS_KEY === null) {
+if (typeof options.AWS_SECRET_ACCESS_KEY === 'undefined' || options.AWS_SECRET_ACCESS_KEY === null) {
   logger.error('AWS_SECRET_ACCESS_KEY is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for AWS_SECRET_ACCESS_KEY and try again.')
   throw new Error('AWS_SECRET_ACCESS_KEY is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for AWS_SECRET_ACCESS_KEY and try again.')
 }
-if (typeof process.env.AWS_REGION === 'undefined' || process.env.AWS_REGION === null) {
+if (typeof options.AWS_REGION === 'undefined' || options.AWS_REGION === null) {
   logger.error('AWS_REGION is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for AWS_REGION and try again.')
   throw new Error('AWS_REGION is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for AWS_REGION and try again.')
 }
-if (typeof process.env.ROUTE53_HOSTED_ZONE_ID === 'undefined' || process.env.ROUTE53_HOSTED_ZONE_ID === null) {
+if (typeof options.ROUTE53_HOSTED_ZONE_ID === 'undefined' || options.ROUTE53_HOSTED_ZONE_ID === null) {
   logger.error('ROUTE53_HOSTED_ZONE_ID is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_HOSTED_ZONE_ID and try again.')
   throw new Error('ROUTE53_HOSTED_ZONE_ID is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_HOSTED_ZONE_ID and try again.')
 }
-if (typeof process.env.ROUTE53_DOMAIN === 'undefined' || process.env.ROUTE53_DOMAIN === null) {
+if (typeof options.ROUTE53_DOMAIN === 'undefined' || options.ROUTE53_DOMAIN === null) {
   logger.error('ROUTE53_DOMAIN is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_DOMAIN and try again.')
   throw new Error('ROUTE53_DOMAIN is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_DOMAIN and try again.')
 }
-if (typeof process.env.ROUTE53_TYPE === 'undefined' || process.env.ROUTE53_TYPE === null) {
+if (typeof options.ROUTE53_TYPE === 'undefined' || options.ROUTE53_TYPE === null) {
   logger.error('ROUTE53_TYPE is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_TYPE and try again.')
   throw new Error('ROUTE53_TYPE is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_TYPE and try again.')
 }
-if (typeof process.env.ROUTE53_TTL === 'undefined' || process.env.ROUTE53_TTL === null) {
+if (typeof options.ROUTE53_TTL === 'undefined' || options.ROUTE53_TTL === null) {
   logger.error('ROUTE53_TTL is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_TTL and try again.')
   throw new Error('ROUTE53_TTL is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_TTL and try again.')
 }
 
 // Check if the "SEND_EMAIL_SES" flag is set to true before checking SES related variables.
 if (SEND_EMAIL_SES) {
-  if (typeof process.env.SES_TO_ADDRESS === 'undefined' || process.env.SES_TO_ADDRESS === null) {
+  if (typeof options.SES_TO_ADDRESS === 'undefined' || options.SES_TO_ADDRESS === null) {
     logger.error('SES_TO_ADDRESS is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for SES_TO_ADDRESS and try again.')
     throw new Error('SES_TO_ADDRESS is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for SES_TO_ADDRESS and try again.')
   }
-  if (typeof process.env.SES_FROM_ADDRESS === 'undefined' || process.env.SES_FROM_ADDRESS === null) {
+  if (typeof options.SES_FROM_ADDRESS === 'undefined' || options.SES_FROM_ADDRESS === null) {
     logger.error('SES_FROM_ADDRESS is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for SES_FROM_ADDRESS and try again.')
     throw new Error('SES_FROM_ADDRESS is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for SES_FROM_ADDRESS and try again.')
   }
