@@ -24,7 +24,7 @@ const SES_TO_ADDRESS = options.SES_TO_ADDRESS
 const SES_FROM_ADDRESS = options.SES_FROM_ADDRESS
 const UPDATE_FREQUENCY = parseInt(options.UPDATE_FREQUENCY || '60000')
 const IPCHECKER = options.IPCHECKER || 'opendns'
-const LOG_TO_STDOUT = JSON.parse(options.LOG_TO_STDOUT || 'false')
+const LOG_TO_STDOUT = true
 
 // Setup connection info for IPCHECKER services. Other services can
 // be added below in future if desired
