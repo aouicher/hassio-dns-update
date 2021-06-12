@@ -6,6 +6,7 @@
   "url": "https://github.com/aouicher/hassio-dns-update.git",
   "init": false,
   "arch": ["aarch64", "amd64", "armhf", "armv7", "i386"],
+  "map": ["ssl", "config"],
   "options": {
     "AWS_ACCESS_KEY_ID":"",
     "AWS_SECRET_ACCESS_KEY" :"",
