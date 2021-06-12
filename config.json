@@ -22,6 +22,7 @@
     "UPDATE_FREQUENCY":60000,
     "IPCHECKER":"opendns"
   },
+  
   "schema": {
     "log_level": "list(DEBUG|TRACE|INFO|WARN|CRITICAL|WARNING)?",
     "console_log_level": "list(DEBUG|TRACE|INFO|WARN|CRITICAL|WARNING)?",
