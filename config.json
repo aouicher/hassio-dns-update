@@ -23,8 +23,21 @@
     "LOG_TO_STDOUT":false
   },
   "schema": {
-    "log_level": "list(trace|debug|info|notice|warning|error|fatal)",
-    "seconds_between_quotes": "int(1,120)"
+    "log_level": "list(DEBUG|TRACE|INFO|WARN|CRITICAL|WARNING)?",
+    "console_log_level": "list(DEBUG|TRACE|INFO|WARN|CRITICAL|WARNING)?",
+    "AWS_ACCESS_KEY_ID":"str?",
+    "AWS_SECRET_ACCESS_KEY" :"str?",
+    "AWS_REGION":"str(eu-west-1)?",
+    "ROUTE53_HOSTED_ZONE_ID":"str?",
+    "ROUTE53_DOMAIN":"str?",
+    "ROUTE53_TYPE":"str(A)?",
+    "ROUTE53_TTL":"int(600,)?",
+    "SEND_EMAIL_SES":"bool(false)?",
+    "SES_TO_ADDRESS":"str?",
+    "SES_FROM_ADDRESS":"str?",
+    "UPDATE_FREQUENCY":"int(60000,)?",
+    "IPCHECKER":"str(opendns)?",
+    "LOG_TO_STDOUT":"bool(false)?"
   }
 }
 
