@@ -38,7 +38,8 @@
     "UPDATE_FREQUENCY":"int?",
     "IPCHECKER":"str?",
     "LOG_TO_STDOUT":"bool?"
-  }
+  },
+  "image": "aouicher/image-{arch}-dns-update"
 }
 
 
