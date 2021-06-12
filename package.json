@@ -1,6 +1,6 @@
 {
   "name": "hassio-dns-update",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Update AWS Route53 hosted zone with current public IP address.  Alternative to Dynamic DNS services such as Dyn, No-IP, etc",
   "author": "Alexandre Ouicher <aouicher@cobalt.fr>",
   "main": "server.js",

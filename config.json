@@ -1,6 +1,6 @@
 {
   "name": "Hassio DNS Update",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "slug": "hassio-dns-update",
   "description": "Add-on to update external DNS with local dynamic IP",
   "url": "https://github.com/aouicher/hassio-dns-update.git",
@@ -38,8 +38,7 @@
     "UPDATE_FREQUENCY":"int?",
     "IPCHECKER":"str?",
     "LOG_TO_STDOUT":"bool?"
-  },
-  "image": "aouicher/hassio-dns-update"
+  }
 }
 
 

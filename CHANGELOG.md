@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.6 - 2021-06-13
+### fixed
+- change version and image path
+
 ## [1.0.5 - 2021-06-13
 ### Added
 - add image to dockerHub
