@@ -1,0 +1,30 @@
+{
+  "name": "Hassio DNS Update",
+  "version": "dev",
+  "slug": "hassio-dns-update",
+  "description": "Add-on to update external DNS with local dynamic IP",
+  "url": "https://github.com/aouicher/hassio-dns-update.git",
+  "init": false,
+  "arch": ["aarch64", "amd64", "armhf", "armv7", "i386"],
+  "options": {
+    "AWS_ACCESS_KEY_ID":"",
+    "AWS_SECRET_ACCESS_KEY" :"",
+    "AWS_REGION":"eu-west-1",
+    "ROUTE53_HOSTED_ZONE_ID":"",
+    "ROUTE53_DOMAIN":"",
+    "ROUTE53_TYPE":"A",
+    "ROUTE53_TTL":"600",
+    "SEND_EMAIL_SES":false,
+    "SES_TO_ADDRESS":"",
+    "SES_FROM_ADDRESS":"",
+    "UPDATE_FREQUENCY":60000,
+    "IPCHECKER":"opendns",
+    "LOG_TO_STDOUT":false
+  },
+  "schema": {
+    "log_level": "list(trace|debug|info|notice|warning|error|fatal)",
+    "seconds_between_quotes": "int(1,120)"
+  }
+}
+
+
