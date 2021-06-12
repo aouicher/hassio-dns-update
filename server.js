@@ -8,9 +8,6 @@ const log4js = require('log4js')
 const dotenv = require('dotenv')
 const options = JSON.parse(fs.readFileSync("/data/options.json", "utf8"))
 
-// Initialize dotenv to try and load .env file
-const dotenvresult = dotenv.config()
-
 // Global configuration variables set using environment variables
 const AWS_ACCESS_KEY_ID = options.AWS_ACCESS_KEY_ID
 const AWS_SECRET_ACCESS_KEY = options.AWS_SECRET_ACCESS_KEY
@@ -77,52 +74,45 @@ if (LOG_TO_STDOUT) {
   console.log('Log4js initialized with level', logger.level.levelStr, '\n\nLogs located in application.log in working directory\n\nIf running in Docker Container use the following command to access a shell:\n   docker exec -it [container_id] sh \n\n')
 }
 
-// Handle error loading required environment variables from .env file
-if (dotenvresult.error) {
-  logger.info('Unable to load environment variables from .env file.  Process is likely running in a container.  Make sure you pass environment variables when starting container.')
-} else {
-  logger.info('Successfully loaded environment variables from .env file')
-}
-
 // Determine if required environment variables are set before starting to execute process
 if (typeof options.AWS_ACCESS_KEY_ID === 'undefined' || options.AWS_ACCESS_KEY_ID === null) {
-  logger.error('AWS_ACCESS_KEY_ID is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for AWS_ACCESS_KEY_ID and try again.')
-  throw new Error('AWS_ACCESS_KEY_ID is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for AWS_ACCESS_KEY_ID and try again.')
+  logger.error('AWS_ACCESS_KEY_ID is undefined.  Please define value for AWS_ACCESS_KEY_ID and try again.')
+  throw new Error('AWS_ACCESS_KEY_ID is undefined.  Please define value for AWS_ACCESS_KEY_ID and try again.')
 }
 if (typeof options.AWS_SECRET_ACCESS_KEY === 'undefined' || options.AWS_SECRET_ACCESS_KEY === null) {
-  logger.error('AWS_SECRET_ACCESS_KEY is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for AWS_SECRET_ACCESS_KEY and try again.')
-  throw new Error('AWS_SECRET_ACCESS_KEY is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for AWS_SECRET_ACCESS_KEY and try again.')
+  logger.error('AWS_SECRET_ACCESS_KEY is undefined.  Please define value for AWS_SECRET_ACCESS_KEY and try again.')
+  throw new Error('AWS_SECRET_ACCESS_KEY is undefined.  Please define value for AWS_SECRET_ACCESS_KEY and try again.')
 }
 if (typeof options.AWS_REGION === 'undefined' || options.AWS_REGION === null) {
-  logger.error('AWS_REGION is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for AWS_REGION and try again.')
-  throw new Error('AWS_REGION is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for AWS_REGION and try again.')
+  logger.error('AWS_REGION is undefined.  Please define value for AWS_REGION and try again.')
+  throw new Error('AWS_REGION is undefined.  Please define value for AWS_REGION and try again.')
 }
 if (typeof options.ROUTE53_HOSTED_ZONE_ID === 'undefined' || options.ROUTE53_HOSTED_ZONE_ID === null) {
-  logger.error('ROUTE53_HOSTED_ZONE_ID is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_HOSTED_ZONE_ID and try again.')
-  throw new Error('ROUTE53_HOSTED_ZONE_ID is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_HOSTED_ZONE_ID and try again.')
+  logger.error('ROUTE53_HOSTED_ZONE_ID is undefined.  Please define value for ROUTE53_HOSTED_ZONE_ID and try again.')
+  throw new Error('ROUTE53_HOSTED_ZONE_ID is undefined.  Please define value for ROUTE53_HOSTED_ZONE_ID and try again.')
 }
 if (typeof options.ROUTE53_DOMAIN === 'undefined' || options.ROUTE53_DOMAIN === null) {
-  logger.error('ROUTE53_DOMAIN is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_DOMAIN and try again.')
-  throw new Error('ROUTE53_DOMAIN is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_DOMAIN and try again.')
+  logger.error('ROUTE53_DOMAIN is undefined.  Please define value for ROUTE53_DOMAIN and try again.')
+  throw new Error('ROUTE53_DOMAIN is undefined.  Please define value for ROUTE53_DOMAIN and try again.')
 }
 if (typeof options.ROUTE53_TYPE === 'undefined' || options.ROUTE53_TYPE === null) {
-  logger.error('ROUTE53_TYPE is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_TYPE and try again.')
-  throw new Error('ROUTE53_TYPE is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_TYPE and try again.')
+  logger.error('ROUTE53_TYPE is undefined.  Please define value for ROUTE53_TYPE and try again.')
+  throw new Error('ROUTE53_TYPE is undefined.  Please define value for ROUTE53_TYPE and try again.')
 }
 if (typeof options.ROUTE53_TTL === 'undefined' || options.ROUTE53_TTL === null) {
-  logger.error('ROUTE53_TTL is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_TTL and try again.')
-  throw new Error('ROUTE53_TTL is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for ROUTE53_TTL and try again.')
+  logger.error('ROUTE53_TTL is undefined.  Please define value for ROUTE53_TTL and try again.')
+  throw new Error('ROUTE53_TTL is undefined.  Please define value for ROUTE53_TTL and try again.')
 }
 
 // Check if the "SEND_EMAIL_SES" flag is set to true before checking SES related variables.
 if (SEND_EMAIL_SES) {
   if (typeof options.SES_TO_ADDRESS === 'undefined' || options.SES_TO_ADDRESS === null) {
-    logger.error('SES_TO_ADDRESS is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for SES_TO_ADDRESS and try again.')
-    throw new Error('SES_TO_ADDRESS is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for SES_TO_ADDRESS and try again.')
+    logger.error('SES_TO_ADDRESS is undefined.  Please define value for SES_TO_ADDRESS and try again.')
+    throw new Error('SES_TO_ADDRESS is undefined.  Please define value for SES_TO_ADDRESS and try again.')
   }
   if (typeof options.SES_FROM_ADDRESS === 'undefined' || options.SES_FROM_ADDRESS === null) {
-    logger.error('SES_FROM_ADDRESS is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for SES_FROM_ADDRESS and try again.')
-    throw new Error('SES_FROM_ADDRESS is undefined or null in .env file or it was not set at runtime (ex: running Docker container).  Please define value for SES_FROM_ADDRESS and try again.')
+    logger.error('SES_FROM_ADDRESS is undefined.  Please define value for SES_FROM_ADDRESS and try again.')
+    throw new Error('SES_FROM_ADDRESS is undefined.  Please define value for SES_FROM_ADDRESS and try again.')
   }
 }
 

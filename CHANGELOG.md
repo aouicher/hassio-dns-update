@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.8] - 2021-06-13
+### fixed
+- Fix some configuration and error report
+
 ## [1.0.7] - 2021-06-13
 ### fixed
 - Boot auto
