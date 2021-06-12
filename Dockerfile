@@ -1,15 +1,10 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:9.2.0
-# hadolint ignore=DL3006
-FROM ${BUILD_FROM}
+# Use offical Node.js image.  The image uses Apline Linux
+FROM node:14.15-alpine
 
-# Build arguments
-ARG BUILD_ARCH
+# Build-time metadata as defined at https://github.com/opencontainers/image-spec/blob/master/annotations.md
 ARG BUILD_DATE
-ARG BUILD_DESCRIPTION
-ARG BUILD_NAME
-ARG BUILD_REF
-ARG BUILD_REPOSITORY
-ARG BUILD_VERSION
+ARG DOCKER_TAG
+ARG GIT_SHA
 
 # Labels
 LABEL \
